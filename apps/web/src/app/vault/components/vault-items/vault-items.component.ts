@@ -1,3 +1,4 @@
+import { SelectionModel } from "@angular/cdk/collections";
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 
 import { Organization } from "@bitwarden/common/admin-console/models/domain/organization";
@@ -63,9 +64,10 @@ export class VaultItemsComponent {
 
   protected editableItems: VaultItem[] = [];
   protected dataSource = new TableDataSource<VaultItem>();
+  protected selectionModel = new SelectionModel<VaultItem>(true, [], true);
 
   get selected() {
-    return this.dataSource.selectionModel.selected.slice(0, MaxSelectionCount);
+    return this.selectionModel.selected.slice(0, MaxSelectionCount);
   }
 
   get showExtraColumn() {
@@ -153,7 +155,7 @@ export class VaultItemsComponent {
     const ciphers: VaultItem[] = this.ciphers.map((cipher) => ({ cipher }));
     const items: VaultItem[] = [].concat(collections).concat(ciphers);
 
-    this.dataSource.selectionModel.clear();
+    this.selectionModel.clear();
     this.editableItems = items.filter(
       (item) =>
         item.cipher !== undefined ||

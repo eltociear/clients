@@ -1,5 +1,5 @@
 <cdk-virtual-scroll-viewport [itemSize]="RowHeight" scrollWindow class="tw-pb-8">
-  <bit-table [dataSource]="dataSource" layout="fixed">
+  <bit-table [dataSource]="dataSource" [selectionModel]="selectionModel" layout="fixed">
     <ng-container header>
       <tr>
         <th bitCell bit-row-selector class="tw-w-24" colspan="2"></th>

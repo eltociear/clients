@@ -1,3 +1,4 @@
+import { SelectionModel } from "@angular/cdk/collections";
 import { ScrollingModule } from "@angular/cdk/scrolling";
 import { Meta, moduleMetadata, StoryObj } from "@storybook/angular";
 
@@ -213,16 +214,50 @@ export const VariableCase: Story = {
   }),
 };
 
-export const SelectableRows: Story = {
+const selectionModelMultiple = new SelectionModel(true, []);
+
+export const SelectableRowsMultiple: Story = {
   render: (args) => ({
     props: {
       dataSource: data,
+      selectionModel: selectionModelMultiple,
     },
     template: `
-      <bit-table [dataSource]="dataSource">
+      <bit-table [dataSource]="dataSource" [selectionModel]="selectionModel">
         <ng-container header>
           <tr>
             <th bitCell bit-row-selector></th>
+            <th bitCell>Id</th>
+            <th bitCell>Name</th>
+            <th bitCell>Other</th>
+          </tr>
+        </ng-container>
+        <ng-template body let-rows$>
+          <tr [bitRow]="r" *ngFor="let r of rows$ | async">
+            <td bitCell bit-row-selector></td>
+            <td bitCell>{{ r.id }}</td>
+            <td bitCell>{{ r.name }}</td>
+            <td bitCell>{{ r.other }}</td>
+          </tr>
+        </ng-template>
+      </bit-table>
+    `,
+  }),
+};
+
+const selectionModelSingle = new SelectionModel(false, []);
+
+export const SelectableRowsSingle: Story = {
+  render: (args) => ({
+    props: {
+      dataSource: data,
+      selectionModel: selectionModelSingle,
+    },
+    template: `
+      <bit-table [dataSource]="dataSource" [selectionModel]="selectionModel">
+        <ng-container header>
+          <tr>
+            <th></th>
             <th bitCell>Id</th>
             <th bitCell>Name</th>
             <th bitCell>Other</th>

@@ -22,6 +22,8 @@ The UI component consists of a couple of elements.
 - `header`: A container for the table header.
 - `body`: A container for the table body.
 - `bitCell`: A cell within the table. Used for both headers and content.
+- `bitRow`: A row within the table. Used for content only.
+- `bit-row-selector`: A checkbox that selects a row.
 
 ### Guidelines
 
@@ -172,17 +174,16 @@ Adding `bit-row-selector` to a table header will render a select all checkbox:
 
 ```html
 <tr>
-  <th bit-row-selector></th>
+  <th bitCell bit-row-selector></th>
   <th bitCell>Name</th>
 </tr>
 ```
 
-The table's `DataSource.selectionModel` exposes a
-[CDK SelectionModel](https://material.angular.io/cdk/collections/overview) that contains the
-selected rows.
+Pass a [CDK SelectionModel](https://material.angular.io/cdk/collections/overview) to the table's
+`selectionModel` input. This will contain the selected rows.
 
 ```html
-<bit-table [dataSource]="dataSource">
+<bit-table [dataSource]="dataSource" [selectionModel]="selectionModel">
   <ng-container header>
     <tr>
       <th bitCell bit-row-selector></th>
@@ -202,7 +203,7 @@ selected rows.
 </bit-table>
 ```
 
-<Story of={stories.SelectableRows} />
+<Story of={stories.SelectableRowsMultiple} />
 
 ## Accessibility
 

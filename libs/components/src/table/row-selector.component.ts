@@ -48,7 +48,13 @@ export class HeaderRowSelectorComponent implements OnInit {
   constructor(private table: TableComponent) {}
 
   ngOnInit(): void {
-    this.selection = this.table.dataSource?.selectionModel;
+    this.selection = this.table?.selectionModel;
+
+    if (!this.selection) {
+      throw new Error(
+        "bit-row-selector requires `selection` to be set on the parent TableComponent."
+      );
+    }
 
     this.checked$ = this.selection.changed
       .asObservable()
@@ -115,7 +121,13 @@ export class RowSelectorComponent {
   }
 
   ngOnInit(): void {
-    this.selection = this.table.dataSource?.selectionModel;
+    this.selection = this.table?.selectionModel;
+
+    if (!this.selection) {
+      throw new Error(
+        "bit-row-selector requires `selection` to be set on the parent TableComponent."
+      );
+    }
 
     this.isSelected = this.selection.changed
       .asObservable()

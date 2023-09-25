@@ -1,4 +1,4 @@
-import { isDataSource } from "@angular/cdk/collections";
+import { SelectionModel, isDataSource } from "@angular/cdk/collections";
 import {
   AfterContentChecked,
   Component,
@@ -27,6 +27,7 @@ export class TableBodyDirective {
 export class TableComponent implements OnDestroy, AfterContentChecked {
   @Input() dataSource: TableDataSource<any>;
   @Input() layout: "auto" | "fixed" = "auto";
+  @Input() selectionModel: SelectionModel<any>;
 
   @ContentChild(TableBodyDirective) templateVariable: TableBodyDirective;
 
